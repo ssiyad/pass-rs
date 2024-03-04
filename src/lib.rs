@@ -1,14 +1,13 @@
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
-}
+mod args;
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+pub fn run() {
+    let args = args::parse_args();
+    let path = args
+        .path
+        .unwrap_or("/Users/ssiyad/.local/share/gopass/stores/root".to_string());
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+    match args.command {
+        Some(args::Commands::List) => list::run(&path).unwrap(),
+        _ => {}
     }
 }
