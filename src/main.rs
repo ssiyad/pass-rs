@@ -1,3 +1,3 @@
 fn main() {
-    pass_rs::run();
+    pass_rs::run().unwrap();
 }

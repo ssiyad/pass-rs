@@ -13,6 +13,7 @@ pub struct Args {
 #[derive(Subcommand, Debug)]
 pub enum Commands {
     List,
+    Edit,
 }
 
 pub fn parse_args() -> Args {
