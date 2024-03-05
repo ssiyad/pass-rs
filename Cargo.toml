@@ -5,7 +5,7 @@ edition = "2021"
 
 
 [workspace]
-members = [".", "edit", "list"]
+members = [".", "edit", "gpg", "list"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

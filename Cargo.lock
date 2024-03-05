@@ -165,7 +165,7 @@ checksum = "ef8ae57c4978a2acd8b869ce6b9ca1dfe817bff704c220209fdef2c0b75a01b9"
 name = "edit"
 version = "0.1.0"
 dependencies = [
- "gpgme",
+ "gpg",
  "tempfile",
 ]
 
@@ -196,6 +196,13 @@ name = "gnupg-rs"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d8252a47de27b875c2a1cc765ed161475eeab5a4116fb0b09c3be7129189a38c"
+
+[[package]]
+name = "gpg"
+version = "0.1.0"
+dependencies = [
+ "gpgme",
+]
 
 [[package]]
 name = "gpg-error"
