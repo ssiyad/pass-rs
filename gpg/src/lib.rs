@@ -9,7 +9,7 @@ where
     T: AsRef<Path>,
 {
     let mut ctx = Context::from_protocol(Protocol::OpenPgp)?;
-    let mut input = File::open(path)?;
+    let mut input = File::open(path.as_ref().with_extension("gpg"))?;
     let mut output = Vec::new();
     ctx.decrypt(&mut input, &mut output)?;
     Ok(String::from_utf8(output)?)
@@ -22,7 +22,6 @@ where
     let mut ctx = Context::from_protocol(Protocol::OpenPgp)?;
     let mut output = Vec::new();
     ctx.encrypt(Vec::new(), content, &mut output)?;
-    let mut output_file = File::create(path)?;
-    output_file.write_all(&output)?;
-    Ok(())
+    let mut output_file = File::create(path.as_ref().with_extension("gpg"))?;
+    Ok(output_file.write_all(&output)?)
 }
