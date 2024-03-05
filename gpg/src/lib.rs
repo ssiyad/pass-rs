@@ -2,8 +2,12 @@ use gpgme::{Context, Protocol};
 use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
+use std::path::Path;
 
-pub fn decrypt(path: &str) -> Result<String, Box<dyn Error>> {
+pub fn decrypt<T>(path: T) -> Result<String, Box<dyn Error>>
+where
+    T: AsRef<Path>,
+{
     let mut ctx = Context::from_protocol(Protocol::OpenPgp)?;
     let mut input = File::open(path)?;
     let mut output = Vec::new();
@@ -11,7 +15,10 @@ pub fn decrypt(path: &str) -> Result<String, Box<dyn Error>> {
     Ok(String::from_utf8(output)?)
 }
 
-pub fn encrypt(path: &str, content: String) -> Result<(), Box<dyn Error>> {
+pub fn encrypt<T>(path: T, content: String) -> Result<(), Box<dyn Error>>
+where
+    T: AsRef<Path>,
+{
     let mut ctx = Context::from_protocol(Protocol::OpenPgp)?;
     let mut output = Vec::new();
     ctx.encrypt(Vec::new(), content, &mut output)?;

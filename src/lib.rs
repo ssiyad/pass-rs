@@ -3,15 +3,13 @@ mod args;
 use std::error::Error;
 
 pub fn run() -> Result<(), Box<dyn Error>> {
-    let args = args::parse_args();
-    let path = args
-        .path
-        .unwrap_or("/Users/ssiyad/.local/share/gopass/stores/root".to_string());
+    let arg = args::parse_args();
+    let path = arg.path();
 
-    match args.command {
-        Some(args::Commands::Edit) => edit::run()?,
-        Some(args::Commands::List) => list::run(&path)?,
-        Some(args::Commands::Show) => show::run()?,
+    match arg.command {
+        Some(args::Commands::Edit { item }) => edit::run(path.join(item))?,
+        Some(args::Commands::List) => list::run(path)?,
+        Some(args::Commands::Show { item }) => show::run(path.join(item))?,
         _ => {}
     }
 

@@ -1,9 +1,7 @@
-use std::error::Error;
+use std::{error::Error, path::PathBuf};
 
-pub fn run() -> Result<(), Box<dyn Error>> {
-    let path = "/tmp/ssiyad.gpg";
+pub fn run(path: PathBuf) -> Result<(), Box<dyn Error>> {
     let content = gpg::decrypt(path)?;
     println!("{}", content);
     Ok(())
 }
-

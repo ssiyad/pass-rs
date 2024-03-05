@@ -1,12 +1,13 @@
 use std::error::Error;
 use std::fs;
+use std::path::PathBuf;
 
-pub fn run(path: &str) -> Result<(), Box<dyn Error>> {
+pub fn run(path: PathBuf) -> Result<(), Box<dyn Error>> {
     list_dir(path, 0)?;
     Ok(())
 }
 
-fn list_dir(path: &str, level: u32) -> Result<(), Box<dyn Error>> {
+fn list_dir(path: PathBuf, level: usize) -> Result<(), Box<dyn Error>> {
     let entries = fs::read_dir(path)?;
 
     for entry in entries {
@@ -20,7 +21,7 @@ fn list_dir(path: &str, level: u32) -> Result<(), Box<dyn Error>> {
             .trim_end_matches(".gpg");
         let is_hidden = file_name.starts_with('.');
         let is_dir = path.is_dir();
-        let padding = "  ".repeat(level as usize);
+        let padding = "  ".repeat(level);
 
         if is_hidden {
             continue;
@@ -31,7 +32,7 @@ fn list_dir(path: &str, level: u32) -> Result<(), Box<dyn Error>> {
         }
 
         if is_dir {
-            list_dir(path.to_str().unwrap(), level + 1)?;
+            list_dir(path, level + 1)?;
         }
     }
 

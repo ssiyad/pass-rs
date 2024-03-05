@@ -1,12 +1,12 @@
 use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
+use std::path::PathBuf;
 use std::process::Command;
 use tempfile::NamedTempFile;
 
-pub fn run() -> Result<(), Box<dyn Error>> {
-    let path = "/tmp/ssiyad.gpg";
-    let content = gpg::decrypt(path)?;
+pub fn run(path: PathBuf) -> Result<(), Box<dyn Error>> {
+    let content = gpg::decrypt(&path)?;
     let edited_content = editor(content)?;
     gpg::encrypt(path, edited_content)?;
     Ok(())
