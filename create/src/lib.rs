@@ -24,7 +24,7 @@ where
 
     // Create missing directories. Skip first element, which will be the
     // file itself.
-    for p in path.ancestors().filter(|x| !x.exists()).skip(1) {
+    for p in path.ancestors().skip(1).filter(|x| !x.exists()) {
         fs::create_dir(p).unwrap();
     }
 
