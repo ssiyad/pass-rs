@@ -7,15 +7,15 @@ use clap::{Parser, Subcommand};
 #[command(version)]
 pub struct Args {
     #[arg(short, long)]
-    path: Option<PathBuf>,
+    root: Option<PathBuf>,
 
     #[command(subcommand)]
     pub command: Option<Commands>,
 }
 
 impl Args {
-    pub fn path(&self) -> PathBuf {
-        self.path.clone().unwrap_or_else(|| {
+    pub fn root(&self) -> PathBuf {
+        self.root.clone().unwrap_or_else(|| {
             let root_dir = ".password-store";
             env::home_dir().unwrap().join(root_dir)
         })
@@ -24,6 +24,7 @@ impl Args {
 
 #[derive(Subcommand, Debug)]
 pub enum Commands {
+    Create,
     Edit {
         #[arg(index = 1)]
         item: String,
