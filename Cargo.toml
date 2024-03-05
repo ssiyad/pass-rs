@@ -5,12 +5,13 @@ edition = "2021"
 
 
 [workspace]
-members = [".", "edit", "gpg", "list"]
+members = [".", "edit", "gpg", "list", "show"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 clap = { version = "4.5.1", features = ["derive", "cargo"] }
 gnupg-rs = "0.1.0"
-list = { path = "list" }
 edit = { path = "edit" }
+list = { path = "list" }
+show = { path = "show" }

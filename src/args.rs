@@ -12,8 +12,9 @@ pub struct Args {
 
 #[derive(Subcommand, Debug)]
 pub enum Commands {
-    List,
     Edit,
+    List,
+    Show,
 }
 
 pub fn parse_args() -> Args {

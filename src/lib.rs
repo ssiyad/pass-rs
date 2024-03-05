@@ -9,8 +9,9 @@ pub fn run() -> Result<(), Box<dyn Error>> {
         .unwrap_or("/Users/ssiyad/.local/share/gopass/stores/root".to_string());
 
     match args.command {
-        Some(args::Commands::List) => list::run(&path)?,
         Some(args::Commands::Edit) => edit::run()?,
+        Some(args::Commands::List) => list::run(&path)?,
+        Some(args::Commands::Show) => show::run()?,
         _ => {}
     }
 
