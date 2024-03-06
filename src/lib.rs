@@ -10,6 +10,7 @@ pub fn run() -> Result<(), Box<dyn Error>> {
         Some(args::Commands::Create) => create::run(root)?,
         Some(args::Commands::Edit { item }) => edit::run(root.join(item))?,
         Some(args::Commands::List) => list::run(root)?,
+        Some(args::Commands::Pwgen { length }) => pwgen::run(length)?,
         Some(args::Commands::Show { item }) => show::run(root.join(item))?,
         _ => {}
     }

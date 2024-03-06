@@ -30,6 +30,10 @@ pub enum Commands {
         item: String,
     },
     List,
+    Pwgen {
+        #[arg(index = 1, default_value = "16")]
+        length: usize,
+    },
     Show {
         #[arg(index = 1)]
         item: String,

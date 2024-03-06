@@ -5,7 +5,7 @@ edition = "2021"
 
 
 [workspace]
-members = [".", "create", "edit", "gpg", "list", "show"]
+members = [".", "create", "edit", "gpg", "list", "pwgen", "show"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -15,4 +15,5 @@ gnupg-rs = "0.1.0"
 create = { path = "create" }
 edit = { path = "edit" }
 list = { path = "list" }
+pwgen = { path = "pwgen" }
 show = { path = "show" }
