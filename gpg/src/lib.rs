@@ -9,7 +9,7 @@ pub fn decrypt<T>(path: T) -> Result<String, Box<dyn Error>>
 where
     T: AsRef<Path>,
 {
-    let mut input = File::open(path.as_ref().with_extension("gpg"))?;
+    let mut input = File::open(path)?;
     let mut output = Vec::new();
     get_context()?.decrypt(&mut input, &mut output)?;
     Ok(String::from_utf8(output)?)
@@ -21,7 +21,7 @@ where
     T: AsRef<Path>,
 {
     let mut output = Vec::new();
-    let mut output_file = File::create(path.as_ref().with_extension("gpg"))?;
+    let mut output_file = File::create(path)?;
     get_context()?.encrypt(Vec::new(), content, &mut output)?;
     Ok(output_file.write_all(&output)?)
 }
