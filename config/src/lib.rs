@@ -1,4 +1,5 @@
 use std::env;
+use std::fmt::{Display, Formatter};
 use std::fs;
 use std::path::PathBuf;
 
@@ -30,13 +31,17 @@ impl Args {
     /// Returns the key to use for encryption/decryption. This will be stored
     /// in a file `.gpg-id` in the root directory.
     pub fn key(&self) -> Option<String> {
+        // If `key` is provided as a command line argument, pick that
         if self.key.is_some() {
             return self.key.clone();
         }
+
+        // Fetch `key` from `root_dir/.gpg-id`
         let path = self.root().join(".gpg-id");
         if path.exists() {
             return fs::read_to_string(path).ok();
         }
+
         None
     }
 
@@ -64,6 +69,18 @@ pub enum Command {
     },
 }
 
+// This is required so that we can convert sub-commands to a string. This
+// string can then be used as key to store different handlers. Since each
+// handler make use of `config` directly, we don't have to pass options
+// via function parameters
+impl Display for Command {
+    fn fmt(&self, f: &mut Formatter) -> std::fmt::Result {
+        write!(f, "{:?}", self)
+    }
+}
+
+/// Get config. This will include both command line arguments as well as
+/// global configuration.
 pub fn parse() -> Args {
     Args::parse()
 }
