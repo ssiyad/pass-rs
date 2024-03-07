@@ -1,5 +1,4 @@
 use std::env;
-use std::fmt::{Display, Formatter};
 use std::fs;
 use std::path::PathBuf;
 
@@ -70,23 +69,6 @@ pub enum Command {
         #[arg(index = 1)]
         item: String,
     },
-}
-
-// This is required so that we can convert sub-commands to a string. This
-// string can then be used as key to store different handlers. Since each
-// handler make use of `config` directly, we don't have to pass options
-// via function parameters
-impl Display for Command {
-    fn fmt(&self, f: &mut Formatter) -> std::fmt::Result {
-        match self {
-            Command::Create => write!(f, "create"),
-            Command::Edit { .. } => write!(f, "edit"),
-            Command::List => write!(f, "list"),
-            Command::Pwgen { .. } => write!(f, "pwgen"),
-            Command::Setup => write!(f, "setup"),
-            Command::Show { .. } => write!(f, "show"),
-        }
-    }
 }
 
 /// Get config. This will include both command line arguments as well as

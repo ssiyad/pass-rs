@@ -1,11 +1,12 @@
 use std::collections::HashMap;
+use std::env;
 use std::error::Error;
 
 type Handler = Box<dyn Fn() -> Result<(), Box<dyn Error>>>;
 
 pub fn main() {
     let handlers = get_handlers();
-    let command = config::parse().command().to_string().to_lowercase();
+    let command = env::args().nth(1).unwrap();
 
     if let Some(handler) = handlers.get(command.as_str()) {
         match handler() {
