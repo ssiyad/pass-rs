@@ -25,7 +25,7 @@ pub fn run() -> Result<(), Box<dyn Error>> {
     // Create missing directories. Skip first element, which will be the
     // file itself.
     for p in path.ancestors().skip(1).filter(|x| !x.exists()) {
-        fs::create_dir(p).unwrap();
+        fs::create_dir(p)?;
     }
 
     // Encrypt password and write to file.

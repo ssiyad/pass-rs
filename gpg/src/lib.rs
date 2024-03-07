@@ -27,7 +27,7 @@ where
 }
 
 /// Get a list of all secret keys.
-fn get_keys() -> Result<Vec<String>, Box<dyn Error>> {
+pub fn get_keys() -> Result<Vec<String>, Box<dyn Error>> {
     let keys = get_context()?
         .secret_keys()?
         .filter_map(|key| key.ok())

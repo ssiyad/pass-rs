@@ -8,6 +8,7 @@ pub fn run() -> Result<(), Box<dyn Error>> {
         config::Command::Edit { .. } => edit::run()?,
         config::Command::List => list::run()?,
         config::Command::Pwgen { .. } => pwgen::run()?,
+        config::Command::Setup => setup::run()?,
         config::Command::Show { .. } => show::run()?,
     }
 

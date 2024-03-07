@@ -481,6 +481,7 @@ dependencies = [
  "edit",
  "list",
  "pwgen",
+ "setup",
  "show",
 ]
 
@@ -612,6 +613,11 @@ dependencies = [
 [[package]]
 name = "setup"
 version = "0.1.0"
+dependencies = [
+ "config",
+ "gpg",
+ "inquire",
+]
 
 [[package]]
 name = "show"

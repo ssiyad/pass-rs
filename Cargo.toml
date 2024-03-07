@@ -15,4 +15,5 @@ create = { path = "create" }
 edit = { path = "edit" }
 list = { path = "list" }
 pwgen = { path = "pwgen" }
+setup = { path = "setup" }
 show = { path = "show" }

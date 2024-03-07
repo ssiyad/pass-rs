@@ -57,6 +57,7 @@ pub enum Command {
         #[arg(index = 1, default_value = "16")]
         length: usize,
     },
+    Setup,
     Show {
         #[arg(index = 1)]
         item: String,
