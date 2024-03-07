@@ -64,6 +64,9 @@ pub enum Command {
     },
     Setup,
     Show {
+        #[arg(short, long)]
+        clip: bool,
+
         #[arg(index = 1)]
         item: String,
     },
@@ -75,7 +78,14 @@ pub enum Command {
 // via function parameters
 impl Display for Command {
     fn fmt(&self, f: &mut Formatter) -> std::fmt::Result {
-        write!(f, "{:?}", self)
+        match self {
+            Command::Create => write!(f, "create"),
+            Command::Edit { .. } => write!(f, "edit"),
+            Command::List => write!(f, "list"),
+            Command::Pwgen { .. } => write!(f, "pwgen"),
+            Command::Setup => write!(f, "setup"),
+            Command::Show { .. } => write!(f, "show"),
+        }
     }
 }
 
