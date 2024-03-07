@@ -30,6 +30,12 @@ fn get_password(content: &str) -> &str {
             password = line;
             break;
         }
+
+        // If the line starts with `Password: `, then it's a password.
+        if line.starts_with("Password: ") {
+            password = line.trim_start_matches("Password: ");
+            break;
+        }
     }
     password
 }
