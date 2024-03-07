@@ -143,6 +143,13 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "acbf1af155f9b9ef647e42cdc158db4b64a1b61f743629225fde6f3e0be2a7c7"
 
 [[package]]
+name = "config"
+version = "0.1.0"
+dependencies = [
+ "clap",
+]
+
+[[package]]
 name = "conv"
 version = "0.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -155,6 +162,7 @@ dependencies = [
 name = "create"
 version = "0.1.0"
 dependencies = [
+ "config",
  "gpg",
  "inquire",
 ]
@@ -210,6 +218,7 @@ checksum = "0d6ef0072f8a535281e4876be788938b528e9a1d43900b82c2569af7da799125"
 name = "edit"
 version = "0.1.0"
 dependencies = [
+ "config",
  "gpg",
  "tempfile",
 ]
@@ -264,12 +273,6 @@ dependencies = [
  "libc",
  "wasi",
 ]
-
-[[package]]
-name = "gnupg-rs"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d8252a47de27b875c2a1cc765ed161475eeab5a4116fb0b09c3be7129189a38c"
 
 [[package]]
 name = "gpg"
@@ -384,6 +387,9 @@ checksum = "01cda141df6706de531b6c46c3a33ecca755538219bd484262fa09410c13539c"
 [[package]]
 name = "list"
 version = "0.1.0"
+dependencies = [
+ "config",
+]
 
 [[package]]
 name = "lock_api"
@@ -470,10 +476,9 @@ dependencies = [
 name = "pass-rs"
 version = "0.1.0"
 dependencies = [
- "clap",
+ "config",
  "create",
  "edit",
- "gnupg-rs",
  "list",
  "pwgen",
  "show",
@@ -504,6 +509,7 @@ dependencies = [
 name = "pwgen"
 version = "0.1.0"
 dependencies = [
+ "config",
  "rand",
 ]
 
@@ -604,9 +610,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "setup"
+version = "0.1.0"
+
+[[package]]
 name = "show"
 version = "0.1.0"
 dependencies = [
+ "config",
  "gpg",
 ]
 

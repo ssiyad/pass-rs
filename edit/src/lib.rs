@@ -1,14 +1,20 @@
 use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
-use std::path::PathBuf;
 use std::process::Command;
 use tempfile::NamedTempFile;
 
-pub fn run(path: PathBuf) -> Result<(), Box<dyn Error>> {
-    let content = gpg::decrypt(&path)?;
-    let edited_content = editor(content)?;
-    gpg::encrypt(path, edited_content)?;
+pub fn run() -> Result<(), Box<dyn Error>> {
+    let config = config::parse();
+    let root = config.root();
+
+    if let config::Command::Edit { item } = config.command() {
+        let path = root.join(item);
+        let content = gpg::decrypt(&path)?;
+        let edited_content = editor(content)?;
+        gpg::encrypt(path, edited_content)?;
+    }
+
     Ok(())
 }
 

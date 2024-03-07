@@ -4,16 +4,20 @@ use rand::distributions::Uniform;
 use rand::rngs::StdRng;
 use rand::{Rng, SeedableRng};
 
-pub fn run(length: usize) -> Result<(), Box<dyn Error>> {
-    let mut generator = Generator::new()
-        .with_lowercase()
-        .with_uppercase()
-        .with_digits()
-        .with_special()
-        .prepare();
+pub fn run() -> Result<(), Box<dyn Error>> {
+    let config = config::parse();
 
-    for _ in 0..10 {
-        println!("{}", generator.generate(length));
+    if let config::Command::Pwgen { length } = config.command() {
+        let mut generator = Generator::new()
+            .with_lowercase()
+            .with_uppercase()
+            .with_digits()
+            .with_special()
+            .prepare();
+
+        for _ in 0..10 {
+            println!("{}", generator.generate(length));
+        }
     }
 
     Ok(())

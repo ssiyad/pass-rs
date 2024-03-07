@@ -2,8 +2,10 @@ use std::error::Error;
 use std::fs;
 use std::path::PathBuf;
 
-pub fn run(path: PathBuf) -> Result<(), Box<dyn Error>> {
-    list_dir(path, 0)?;
+pub fn run() -> Result<(), Box<dyn Error>> {
+    let config = config::parse();
+    let root = config.root();
+    list_dir(root, 0)?;
     Ok(())
 }
 

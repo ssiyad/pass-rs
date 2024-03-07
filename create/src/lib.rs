@@ -1,19 +1,19 @@
 use inquire::{Select, Text};
+use std::error::Error;
 use std::fs;
 use std::path::PathBuf;
-use std::{error::Error, path::Path};
 
-pub fn run<T>(root: T) -> Result<(), Box<dyn Error>>
-where
-    T: AsRef<Path>,
-{
+pub fn run() -> Result<(), Box<dyn Error>> {
+    let config = config::parse();
+    let root = config.root();
+
     // Prompt user for category, domain, login, and password.
     let category = Select::new("Category", vec!["Websites", "Misc"])
         .prompt()?
         .to_lowercase();
 
     // Create path based on category.
-    let mut path = root.as_ref().join(&category);
+    let mut path = root.join(&category);
     match category.as_str() {
         "websites" => path = path_website(path)?,
         "misc" => path = path_misc(path)?,

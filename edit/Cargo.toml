@@ -7,4 +7,5 @@ edition = "2021"
 
 [dependencies]
 tempfile = "3.10.1"
+config = { path = "../config" }
 gpg = { path = "../gpg" }
