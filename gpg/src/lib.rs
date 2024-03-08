@@ -1,4 +1,4 @@
-use gpgme::{Context, Key, Protocol};
+use gpgme::{Context, Protocol};
 use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
