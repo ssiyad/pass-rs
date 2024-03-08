@@ -1,4 +1,4 @@
-use gpgme::{Context, Protocol};
+use gpgme::{Context, Key, Protocol};
 use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
@@ -20,9 +20,13 @@ pub fn encrypt<T>(path: T, content: String) -> Result<(), Box<dyn Error>>
 where
     T: AsRef<Path>,
 {
+    let mut context = get_context()?;
+    let key_str = config::parse().key().unwrap();
+    let key = &context.get_key(key_str).unwrap();
     let mut output = Vec::new();
     let mut output_file = File::create(path)?;
-    get_context()?.encrypt(Vec::new(), content, &mut output)?;
+    let recp = vec![key];
+    get_context()?.encrypt(recp, content, &mut output)?;
     Ok(output_file.write_all(&output)?)
 }
 

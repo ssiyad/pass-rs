@@ -364,6 +364,7 @@ dependencies = [
 name = "gpg"
 version = "0.1.0"
 dependencies = [
+ "config",
  "gpgme",
 ]
 
