@@ -1,5 +1,5 @@
 use super::Category;
-use inquire::{Password, Text};
+use inquire::Text;
 use std::error::Error;
 use std::path::PathBuf;
 
@@ -18,7 +18,7 @@ impl Category for Website {
         self.greet();
         let url = Text::new("Website URL").prompt()?;
         let username = Text::new("Username").prompt()?;
-        let password = Password::new("Password for the Website").prompt()?;
+        let password = self.password()?;
         let prefix = self.prefix();
         let path = PathBuf::new().join(prefix).join(&url).join(&username);
         let content = format!(

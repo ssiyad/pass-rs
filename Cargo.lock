@@ -202,6 +202,7 @@ dependencies = [
  "config",
  "gpg",
  "inquire",
+ "pwgen",
 ]
 
 [[package]]

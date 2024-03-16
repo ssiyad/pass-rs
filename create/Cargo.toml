@@ -9,3 +9,4 @@ edition = "2021"
 inquire = "0.7.0"
 config = { path = "../config" }
 gpg = { path = "../gpg" }
+pwgen = { path = "../pwgen" }

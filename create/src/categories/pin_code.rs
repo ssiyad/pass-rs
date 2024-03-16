@@ -1,5 +1,5 @@
 use super::Category;
-use inquire::{Password, Text};
+use inquire::Text;
 use std::error::Error;
 use std::path::PathBuf;
 
@@ -18,7 +18,7 @@ impl Category for PinCode {
         self.greet();
         let authority = Text::new("Authority").prompt()?;
         let application = Text::new("Application").prompt()?;
-        let password = Password::new("Password for the Website").prompt()?;
+        let password = self.password()?;
         let comment = Text::new("Comment")
             .prompt_skippable()?
             .unwrap_or("".to_string());
