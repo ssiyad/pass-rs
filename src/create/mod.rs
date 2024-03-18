@@ -31,8 +31,8 @@ pub fn main() {
 
 fn get_categories() -> HashMap<&'static str, Box<dyn Category>> {
     let mut c: HashMap<&'static str, Box<dyn Category>> = HashMap::new();
-    c.insert("Website", Box::new(categories::website::Website));
-    c.insert("Misc", Box::new(categories::misc::Misc));
-    c.insert("PIN", Box::new(categories::pin_code::PinCode));
+    c.insert("Website", Box::new(categories::Website));
+    c.insert("Misc", Box::new(categories::Misc));
+    c.insert("PIN", Box::new(categories::PinCode));
     c
 }

@@ -1,6 +1,10 @@
-pub mod misc;
-pub mod pin_code;
-pub mod website;
+mod misc;
+mod pin_code;
+mod website;
+
+pub use misc::Misc;
+pub use pin_code::PinCode;
+pub use website::Website;
 
 use crate::pwgen::Generator as PwGen;
 use inquire::{validator::Validation, Confirm, Password, Text};
