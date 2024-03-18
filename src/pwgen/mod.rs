@@ -2,6 +2,7 @@ mod args;
 mod generator;
 
 pub use args::Args;
+use crossterm::terminal;
 pub use generator::Generator;
 
 pub fn main(args: Args) {
@@ -17,7 +18,18 @@ pub fn main(args: Args) {
 
     generator = generator.prepare();
 
-    for _ in 0..10 {
-        println!("{}", generator.generate(args.length));
+    let (terminal_width, _) = terminal::size().unwrap_or((args.length as u16, 0));
+    let per_line = terminal_width / (args.length as u16 + 1);
+    let entries = per_line * 10;
+    let mut counter = 0;
+
+    for _ in 0..entries {
+        print!("{} ", generator.generate(args.length));
+        counter += 1;
+
+        if counter == per_line {
+            println!();
+            counter = 0;
+        }
     }
 }
