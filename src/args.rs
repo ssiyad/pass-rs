@@ -13,11 +13,25 @@ pub struct Args {
 
 #[derive(Subcommand)]
 pub enum Command {
+    /// Create a new password entry
+    #[clap(alias = "new")]
     Create,
+
+    /// Edit an existing password entry
     Edit(super::edit::Args),
+
+    /// List all password entries
+    #[clap(alias = "ls")]
     List,
+
+    /// Generate a new password
+    #[clap(alias = "generate")]
     Pwgen(super::pwgen::Args),
+
+    /// Setup the password store
     Setup,
+
+    /// Show an existing password entry
     Show(super::show::Args),
 }
 
