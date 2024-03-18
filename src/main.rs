@@ -1,33 +1,24 @@
-use std::collections::HashMap;
-use std::env;
-use std::error::Error;
+mod args;
+mod create;
+mod edit;
+mod gpg;
+mod list;
+mod pwgen;
+mod setup;
+mod show;
 
-type Handler = Box<dyn Fn() -> Result<(), Box<dyn Error>>>;
+use clap::Parser;
 
 pub fn main() {
-    let handlers = get_handlers();
-    let command = env::args().nth(1).unwrap();
+    let args = args::Args::parse();
 
-    if let Some(handler) = handlers.get(command.as_str()) {
-        match handler() {
-            Ok(_) => (),
-            Err(e) => {
-                eprintln!("Error: {}", e);
-                std::process::exit(1);
-            }
-        }
-    };
-}
-
-fn get_handlers() -> HashMap<&'static str, Handler> {
-    let mut h: HashMap<&str, Handler> = HashMap::new();
-
-    h.insert("create", Box::new(create::run));
-    h.insert("edit", Box::new(edit::run));
-    h.insert("list", Box::new(list::run));
-    h.insert("pwgen", Box::new(pwgen::run));
-    h.insert("setup", Box::new(setup::run));
-    h.insert("show", Box::new(show::run));
-
-    h
+    match args.command {
+        Some(args::Command::Create) => create::main(),
+        Some(args::Command::Edit(options)) => edit::main(options),
+        Some(args::Command::List) => list::main(),
+        Some(args::Command::Pwgen(options)) => pwgen::main(options),
+        Some(args::Command::Setup) => setup::main(),
+        Some(args::Command::Show(options)) => show::main(options),
+        _ => (),
+    }
 }

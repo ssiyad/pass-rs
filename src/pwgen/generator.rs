@@ -1,27 +1,6 @@
-use std::error::Error;
-
 use rand::distributions::Uniform;
 use rand::rngs::StdRng;
 use rand::{Rng, SeedableRng};
-
-pub fn run() -> Result<(), Box<dyn Error>> {
-    let config = config::parse();
-
-    if let config::Command::Pwgen { length } = config.command() {
-        let mut generator = Generator::new()
-            .with_lowercase()
-            .with_uppercase()
-            .with_digits()
-            .with_special()
-            .prepare();
-
-        for _ in 0..10 {
-            println!("{}", generator.generate(length));
-        }
-    }
-
-    Ok(())
-}
 
 pub struct Generator {
     chars: Vec<char>,

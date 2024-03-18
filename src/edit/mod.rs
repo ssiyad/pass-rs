@@ -1,3 +1,7 @@
+mod args;
+
+use super::gpg;
+pub use args::Args;
 use std::env;
 use std::error::Error;
 use std::fs::File;
@@ -5,18 +9,11 @@ use std::io::prelude::*;
 use std::process::Command;
 use tempfile::NamedTempFile;
 
-pub fn run() -> Result<(), Box<dyn Error>> {
-    let config = config::parse();
-    let root = config.root();
-
-    if let config::Command::Edit { item } = config.command() {
-        let path = root.join(item);
-        let content = gpg::decrypt(&path)?;
-        let edited_content = editor(content)?;
-        gpg::encrypt(path, edited_content)?;
-    }
-
-    Ok(())
+pub fn main(args: Args) {
+    let path = super::args::root().join(args.item);
+    let content = gpg::decrypt(&path).expect("Failed to decrypt");
+    let edited_content = editor(content).expect("Failed to edit");
+    gpg::encrypt(path, edited_content).expect("Failed to encrypt");
 }
 
 fn editor(content: String) -> Result<String, Box<dyn Error>> {

@@ -5,14 +5,10 @@ version = "0.1.0"
 edition = "2021"
 authors = ["Sabu Siyad", "Sabu Siyad <hello@ssiyad.com>"]
 
-[workspace]
-members = [".", "config", "create", "edit", "gpg", "list", "pwgen", "setup", "show"]
-
 [dependencies]
-config = { path = "config" }
-create = { path = "create" }
-edit = { path = "edit" }
-list = { path = "list" }
-pwgen = { path = "pwgen" }
-setup = { path = "setup" }
-show = { path = "show" }
+clap = { version = "4.5.3", features = ["derive", "cargo"] }
+cli-clipboard = "0.4.0"
+gpgme = "0.11.0"
+inquire = "0.7.2"
+rand = "0.8.5"
+tempfile = "3.10.1"

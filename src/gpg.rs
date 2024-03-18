@@ -21,7 +21,7 @@ where
     T: AsRef<Path>,
 {
     let mut context = get_context()?;
-    let key_str = config::parse().key().unwrap();
+    let key_str = super::args::key();
     let key = &context.get_key(key_str).unwrap();
     let mut output = Vec::new();
     let mut output_file = File::create(path)?;

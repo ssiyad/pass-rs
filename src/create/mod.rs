@@ -1,34 +1,32 @@
 mod categories;
 
+use super::gpg;
 use categories::Category;
 use inquire::Select;
 use std::collections::HashMap;
-use std::error::Error;
 use std::fs;
 
-pub fn run() -> Result<(), Box<dyn Error>> {
-    let config = config::parse();
-    let root = config.root();
+pub fn main() {
     let categories = get_categories();
 
     // Prompt user for category
-    let category = Select::new("Category", categories.keys().collect()).prompt()?;
+    let category = Select::new("Category", categories.keys().collect())
+        .prompt()
+        .unwrap();
 
     if let Some(handler) = categories.get(category) {
-        let (path, content) = handler.prompt()?;
-        let effective_path = root.join(path);
+        let (path, content) = handler.prompt().unwrap();
+        let effective_path = super::args::root().join(path);
 
         // Create missing directories. Skip first element, which will be the
         // file itself.
         if let Some(parent) = effective_path.ancestors().skip(1).next() {
-            fs::create_dir_all(parent)?;
+            fs::create_dir_all(parent).expect("Failed to create directory");
         }
 
         // Encrypt password and write to file.
-        gpg::encrypt(effective_path, content)?;
+        gpg::encrypt(effective_path, content).expect("Failed to encrypt");
     }
-
-    Ok(())
 }
 
 fn get_categories() -> HashMap<&'static str, Box<dyn Category>> {

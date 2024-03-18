@@ -2,8 +2,8 @@ pub mod misc;
 pub mod pin_code;
 pub mod website;
 
+use crate::pwgen::Generator as PwGen;
 use inquire::{validator::Validation, Confirm, Password, Text};
-use pwgen::Generator as PwGen;
 use std::error::Error;
 use std::path::PathBuf;
 
