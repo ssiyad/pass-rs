@@ -36,9 +36,11 @@ pub enum Command {
 }
 
 /// Returns the root directory for the password store. This will be
-/// `~/.password-store` by default.
+/// `~/.pass-rs` by default.
 pub fn root() -> PathBuf {
-    env::home_dir().unwrap().join(".password-store")
+    env::home_dir()
+        .expect("Unable to locate home directory")
+        .join(".pass-rs")
 }
 
 /// Returns the key to use for encryption/decryption. This will be stored
