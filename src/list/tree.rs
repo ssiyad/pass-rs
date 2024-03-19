@@ -67,7 +67,7 @@ pub fn print(path: PathBuf, header: String, is_last: bool, depth: u8) {
         // Filter out files starting with `.`, assumed to be hidden
         .filter(|c| {
             c.file_name()
-                .is_some_and(|f| !f.to_string_lossy().starts_with("."))
+                .is_some_and(|f| !f.to_string_lossy().starts_with('.'))
         })
         .collect::<Vec<PathBuf>>();
 

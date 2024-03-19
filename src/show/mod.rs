@@ -21,7 +21,7 @@ fn get_password(content: &str) -> &str {
     for line in content.lines() {
         // If the line contains a space, it's not a password. This logic
         // might not be right.
-        if !line.contains(" ") {
+        if !line.contains(' ') {
             password = line;
             break;
         }

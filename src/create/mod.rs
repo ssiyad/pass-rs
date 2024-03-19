@@ -53,7 +53,7 @@ pub fn main() {
 
         // Create missing directories. Skip first element, which will be the
         // file itself.
-        if let Some(parent) = effective_path.ancestors().skip(1).next() {
+        if let Some(parent) = effective_path.ancestors().nth(1) {
             fs::create_dir_all(parent).expect("Failed to create directory");
         }
 

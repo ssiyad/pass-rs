@@ -19,7 +19,7 @@ pub fn main() {
         let key;
 
         // If no keys are present, ask to create one.
-        if keys.len() == 0 {
+        if keys.is_empty() {
             panic!("No keys found. Please create one.");
         }
         // If only one key is present, use it.
