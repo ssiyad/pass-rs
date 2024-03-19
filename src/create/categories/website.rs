@@ -15,7 +15,6 @@ impl Category for Website {
     }
 
     fn prompt(&self) -> Result<(PathBuf, String), Box<dyn Error>> {
-        self.greet();
         let url = Text::new("Website URL").prompt()?;
         let username = Text::new("Username").prompt()?;
         let password = self.password()?;

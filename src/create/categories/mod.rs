@@ -15,11 +15,6 @@ pub trait Category {
     /// Message to show when the category is selected.
     fn welcome(&self) -> &'static str;
 
-    /// Greet the user, with welcome message.
-    fn greet(&self) {
-        println!("{}", self.welcome());
-    }
-
     /// Prefix to use in the path.
     fn prefix(&self) -> &'static str;
 
@@ -69,5 +64,13 @@ pub trait Category {
             // Ask for password and return it.
             Ok(Password::new("Password").prompt()?)
         }
+    }
+
+    /// Ask for confirmation.
+    fn confirm_save(&self) -> bool {
+        Confirm::new("Save")
+            .with_default(true)
+            .prompt()
+            .expect("Failed to confirm")
     }
 }

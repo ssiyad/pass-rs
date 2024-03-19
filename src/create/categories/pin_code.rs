@@ -15,7 +15,6 @@ impl Category for PinCode {
     }
 
     fn prompt(&self) -> Result<(PathBuf, String), Box<dyn Error>> {
-        self.greet();
         let authority = Text::new("Authority").prompt()?;
         let application = Text::new("Application").prompt()?;
         let password = self.password()?;

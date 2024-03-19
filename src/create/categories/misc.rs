@@ -15,7 +15,6 @@ impl Category for Misc {
     }
 
     fn prompt(&self) -> Result<(PathBuf, String), Box<dyn Error>> {
-        self.greet();
         let name = Text::new("Name").prompt()?;
         let password = self.password()?;
         let comment = Text::new("Comment")
