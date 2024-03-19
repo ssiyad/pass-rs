@@ -1,6 +1,6 @@
 [package]
 name = "pass-rs"
-description = "A simple password manager written in Rust"
+description = "A simple password manager, written in Rust"
 version = "0.1.0"
 edition = "2021"
 authors = ["Sabu Siyad", "Sabu Siyad <hello@ssiyad.com>"]
