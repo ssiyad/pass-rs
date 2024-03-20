@@ -1,15 +1,18 @@
 [package]
 name = "pass-rs"
-description = "A simple password manager, written in Rust"
+description = "Simple password manager, written in Rust"
 version = "0.1.0"
 edition = "2021"
 authors = ["Sabu Siyad", "Sabu Siyad <hello@ssiyad.com>"]
 
 [dependencies]
+base32 = "0.4.0"
 clap = { version = "4.5.3", features = ["derive", "cargo"] }
 cli-clipboard = "0.4.0"
 crossterm = "0.27.0"
 gpgme = "0.11.0"
+hmac = "0.12.1"
 inquire = "0.7.2"
 rand = "0.8.5"
+sha1 = "0.10.6"
 tempfile = "3.10.1"

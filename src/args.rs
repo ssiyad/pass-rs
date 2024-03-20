@@ -24,6 +24,9 @@ pub enum Command {
     #[clap(alias = "ls")]
     List,
 
+    /// Manage time based one time passwords
+    Otp(super::otp::Args),
+
     /// Generate a new password
     #[clap(alias = "generate")]
     Pwgen(super::pwgen::Args),
