@@ -8,11 +8,11 @@ use clap::{Parser, Subcommand};
 #[command(about, version, arg_required_else_help(true))]
 pub struct Args {
     #[command(subcommand)]
-    pub command: Option<Command>,
+    pub command: Cmd,
 }
 
 #[derive(Subcommand)]
-pub enum Command {
+pub enum Cmd {
     /// Create a new password entry
     #[clap(alias = "new")]
     Create,

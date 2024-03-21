@@ -1,8 +1,13 @@
-use clap::Parser;
-use std::path::PathBuf;
+use clap::{Parser, Subcommand};
 
 #[derive(Parser)]
 pub struct Args {
-    #[arg(index = 1)]
-    pub secret: PathBuf,
+    #[command(subcommand)]
+    pub command: Cmd,
+}
+
+#[derive(Subcommand)]
+pub enum Cmd {
+    Set(super::set::Args),
+    Show(super::show::Args),
 }

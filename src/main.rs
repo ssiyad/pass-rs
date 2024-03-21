@@ -8,20 +8,19 @@ mod pwgen;
 mod setup;
 mod show;
 
-use args::{Args, Command};
+use args::{Args, Cmd};
 use clap::Parser;
 
 pub fn main() {
     let args = Args::parse();
 
     match args.command {
-        Some(Command::Create) => create::main(),
-        Some(Command::Edit(options)) => edit::main(options),
-        Some(Command::List) => list::main(),
-        Some(Command::Otp(options)) => otp::main(options),
-        Some(Command::Pwgen(options)) => pwgen::main(options),
-        Some(Command::Setup) => setup::main(),
-        Some(Command::Show(options)) => show::main(options),
-        _ => (),
+        Cmd::Create => create::main(),
+        Cmd::Edit(options) => edit::main(options),
+        Cmd::List => list::main(),
+        Cmd::Otp(options) => otp::main(options),
+        Cmd::Pwgen(options) => pwgen::main(options),
+        Cmd::Setup => setup::main(),
+        Cmd::Show(options) => show::main(options),
     }
 }
