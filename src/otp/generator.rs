@@ -51,7 +51,7 @@ impl Generator {
         let step = time / self.step_size;
         let signed = self.sign(&step.to_be_bytes());
         let offset = (signed[19] & 0xf) as usize;
-        let truncated = signed[offset as usize..=(offset + 3) as usize].to_vec();
+        let truncated = signed[offset..=(offset + 3)].to_vec();
         let code_num = u32::from_be_bytes(truncated.try_into().unwrap()) & 0x7fffffff;
         let size_adjused = (code_num as u64) % 10_u64.pow(self.size as u32);
         size_adjused as usize
