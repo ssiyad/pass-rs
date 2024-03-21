@@ -50,5 +50,8 @@ pub fn root() -> PathBuf {
 /// in a file `.gpg-id` in the root directory.
 pub fn key() -> String {
     let path = root().join(".gpg-id");
-    fs::read_to_string(path).unwrap()
+    fs::read_to_string(path)
+        .unwrap()
+        .trim_matches('\n')
+        .to_string()
 }
