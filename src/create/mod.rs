@@ -1,6 +1,7 @@
 mod categories;
 
 use crate::crypto;
+use crate::storage;
 use crossterm::{
     execute,
     style::{Color, Print, ResetColor, SetForegroundColor},
@@ -58,6 +59,6 @@ pub fn main() {
     // Encrypt content.
     let content = crypto::get().encrypt(content);
 
-    // Write to file.
-    fs::write(effective_path, content).expect("Failed to write file");
+    // // Write to file.
+    // storage::get().write(effective_path, content);
 }

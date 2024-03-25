@@ -1,22 +1,23 @@
 mod args;
 
 use crate::crypto;
+use crate::storage;
 pub use args::Args;
 use std::env;
 use std::error::Error;
-use std::fs;
 use std::fs::File;
 use std::io::prelude::*;
 use std::process::Command;
 use tempfile::NamedTempFile;
 
 pub fn main(args: Args) {
-    let path = super::args::root().join(args.item);
-    let content_raw = fs::read(&path).expect("Failed to read file");
-    let content = crypto::get().decrypt(content_raw);
+    let crypto_backend = crypto::get();
+    let storage_backend = storage::get();
+    let content_raw = storage_backend.read(args.item.clone());
+    let content = crypto_backend.decrypt(content_raw);
     let edited_content = editor(content).expect("Failed to edit");
-    let content_encrypted = crypto::get().encrypt(edited_content);
-    fs::write(path, content_encrypted).expect("Failed to write file");
+    let content_encrypted = crypto_backend.encrypt(edited_content);
+    storage_backend.write(args.item, content_encrypted);
 }
 
 fn editor(content: String) -> Result<String, Box<dyn Error>> {

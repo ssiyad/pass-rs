@@ -15,4 +15,7 @@ pub fn main(args: Args) {
 
     // Initialize the crypto backend
     crypto::init(args.crypto);
+
+    // Initialize the storage backend
+    args.storage.init();
 }

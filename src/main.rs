@@ -8,6 +8,7 @@ mod list;
 mod otp;
 mod pwgen;
 mod show;
+mod storage;
 
 use args::{Args, Cmd};
 use clap::Parser;
