@@ -74,3 +74,15 @@ pub trait Category {
             .expect("Failed to confirm")
     }
 }
+
+pub fn get_category(category: &str) -> Box<dyn Category> {
+    if category == "Website" {
+        Box::new(Website)
+    } else if category == "Misc" {
+        Box::new(Misc)
+    } else if category == "PIN" {
+        Box::new(PinCode)
+    } else {
+        panic!("Unknown category");
+    }
+}

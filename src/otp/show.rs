@@ -1,10 +1,11 @@
 use super::generator::Generator;
-use crate::gpg;
+use crate::crypto;
 use clap::Parser;
 use crossterm::{
     execute,
     style::{Attribute, Color, Print, ResetColor, SetAttribute, SetForegroundColor},
 };
+use std::fs;
 use std::io;
 
 #[derive(Parser)]
@@ -15,8 +16,9 @@ pub struct Args {
 
 pub fn main(args: Args) {
     let path = crate::args::root().join(args.name);
-    let secret = gpg::decrypt(path).expect("Failed to decrypt");
-    let token = secret
+    let content_raw = fs::read(path).expect("Could not read file");
+    let content = crypto::get().decrypt(content_raw);
+    let token = content
         .lines()
         .find(|line| line.starts_with("totp: "))
         .expect("No Otp line found")

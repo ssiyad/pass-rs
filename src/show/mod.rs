@@ -1,16 +1,17 @@
 mod args;
 
-use super::gpg;
+use crate::crypto;
 pub use args::Args;
-use cli_clipboard::{ClipboardContext, ClipboardProvider};
+use std::fs;
 
 pub fn main(args: Args) {
     let path = super::args::root().join(args.item);
-    let content = gpg::decrypt(path).expect("Failed to decrypt");
+    let content_raw = fs::read(path).expect("Failed to read file");
+    let content = crypto::get().decrypt(content_raw);
 
     if args.clip {
         let password = get_password(&content);
-        copy(password);
+        crate::clipboard::copy(password);
     } else {
         println!("{}", content);
     }
@@ -33,11 +34,4 @@ fn get_password(content: &str) -> &str {
         }
     }
     password
-}
-
-fn copy(content: &str) {
-    ClipboardContext::new()
-        .expect("Failed to create clipboard context")
-        .set_contents(content.to_string())
-        .expect("Failed to set clipboard contents");
 }

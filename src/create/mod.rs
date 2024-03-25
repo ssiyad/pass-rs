@@ -1,27 +1,23 @@
 mod categories;
 
-use super::gpg;
-use categories::Category;
+use crate::crypto;
 use crossterm::{
     execute,
     style::{Color, Print, ResetColor, SetForegroundColor},
 };
 use inquire::Select;
-use std::collections::HashMap;
 use std::fs;
 use std::io;
 use std::process;
 
 pub fn main() {
-    let categories = get_categories();
-
     // Prompt user for category.
-    let category = Select::new("Category", categories.keys().collect())
+    let category = Select::new("Category", vec!["Website", "Misc", "PIN"])
         .prompt()
         .unwrap();
 
     // Get category handler.
-    let handler = categories.get(category).unwrap();
+    let handler = categories::get_category(category);
 
     // Greet the user.
     execute!(
@@ -59,14 +55,9 @@ pub fn main() {
         fs::create_dir_all(parent).expect("Failed to create directory");
     }
 
-    // Encrypt password and write to file.
-    gpg::encrypt(effective_path, content).expect("Failed to encrypt");
-}
+    // Encrypt content.
+    let content = crypto::get().encrypt(content);
 
-fn get_categories() -> HashMap<&'static str, Box<dyn Category>> {
-    let mut c: HashMap<&'static str, Box<dyn Category>> = HashMap::new();
-    c.insert("Website", Box::new(categories::Website));
-    c.insert("Misc", Box::new(categories::Misc));
-    c.insert("PIN", Box::new(categories::PinCode));
-    c
+    // Write to file.
+    fs::write(effective_path, content).expect("Failed to write file");
 }

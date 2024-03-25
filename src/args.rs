@@ -1,5 +1,4 @@
 use std::env;
-use std::fs;
 use std::path::PathBuf;
 
 use clap::{Parser, Subcommand};
@@ -18,24 +17,24 @@ pub enum Cmd {
     Create,
 
     /// Edit an existing password entry
-    Edit(super::edit::Args),
+    Edit(crate::edit::Args),
+
+    /// Setup the password store
+    Init(crate::init::Args),
 
     /// List all password entries
     #[clap(alias = "ls")]
     List,
 
     /// Manage time based one time passwords
-    Otp(super::otp::Args),
+    Otp(crate::otp::Args),
 
     /// Generate a new password
     #[clap(alias = "generate")]
-    Pwgen(super::pwgen::Args),
-
-    /// Setup the password store
-    Setup,
+    Pwgen(crate::pwgen::Args),
 
     /// Show an existing password entry
-    Show(super::show::Args),
+    Show(crate::show::Args),
 }
 
 /// Returns the root directory for the password store. This will be
@@ -44,14 +43,4 @@ pub fn root() -> PathBuf {
     env::home_dir()
         .expect("Unable to locate home directory")
         .join(".pass-rs")
-}
-
-/// Returns the key to use for encryption/decryption. This will be stored
-/// in a file `.gpg-id` in the root directory.
-pub fn key() -> String {
-    let path = root().join(".gpg-id");
-    fs::read_to_string(path)
-        .unwrap()
-        .trim_matches('\n')
-        .to_string()
 }

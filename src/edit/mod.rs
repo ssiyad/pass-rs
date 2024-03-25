@@ -1,9 +1,10 @@
 mod args;
 
-use super::gpg;
+use crate::crypto;
 pub use args::Args;
 use std::env;
 use std::error::Error;
+use std::fs;
 use std::fs::File;
 use std::io::prelude::*;
 use std::process::Command;
@@ -11,9 +12,11 @@ use tempfile::NamedTempFile;
 
 pub fn main(args: Args) {
     let path = super::args::root().join(args.item);
-    let content = gpg::decrypt(&path).expect("Failed to decrypt");
+    let content_raw = fs::read(&path).expect("Failed to read file");
+    let content = crypto::get().decrypt(content_raw);
     let edited_content = editor(content).expect("Failed to edit");
-    gpg::encrypt(path, edited_content).expect("Failed to encrypt");
+    let content_encrypted = crypto::get().encrypt(edited_content);
+    fs::write(path, content_encrypted).expect("Failed to write file");
 }
 
 fn editor(content: String) -> Result<String, Box<dyn Error>> {
