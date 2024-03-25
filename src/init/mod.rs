@@ -10,7 +10,7 @@ pub fn main(args: Args) {
 
     // Create root directory if it doesn't exist.
     if !root.exists() {
-        fs::create_dir(&root).expect("Failed to create root directory");
+        fs::create_dir(&root).unwrap();
     }
 
     // Initialize the crypto backend

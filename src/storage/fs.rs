@@ -15,5 +15,7 @@ pub fn read(name: String) -> Vec<u8> {
 }
 
 pub fn write(name: String, content: Vec<u8>) {
-    fs::write(path(name), content).unwrap();
+    let effective_path = path(name);
+    fs::create_dir_all(effective_path.parent().unwrap()).unwrap();
+    fs::write(effective_path, content).unwrap();
 }

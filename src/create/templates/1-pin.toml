@@ -1,0 +1,25 @@
+priority = 1
+name = "PIN Code (numerical)"
+prefix = "pin"
+name_from = ["authority", "application"]
+welcome = "Creating numerical PIN"
+
+[[attributes]]
+name = "authority"
+prompt = "Authority"
+prompt_type = "string"
+
+[[attributes]]
+name = "application"
+prompt = "Entity"
+prompt_type = "string"
+
+[[attributes]]
+name = "password"
+prompt = "Pin"
+prompt_type = "password"
+
+[[attributes]]
+name = "comment"
+prompt = "Comment"
+prompt_type = "string"

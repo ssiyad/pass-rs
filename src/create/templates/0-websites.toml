@@ -1,0 +1,20 @@
+priority = 0
+name = "Website login"
+prefix = "websites"
+name_from = ["url", "username"]
+welcome = "Creating Website login"
+
+[[attributes]]
+name = "url"
+prompt = "Website URL"
+prompt_type = "string"
+
+[[attributes]]
+name = "username"
+prompt = "Username"
+prompt_type = "string"
+
+[[attributes]]
+name = "password"
+prompt = "Password for the Website"
+prompt_type = "password"
