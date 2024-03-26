@@ -38,13 +38,13 @@ impl Backend {
 /// Get the crypto backend
 pub fn get() -> Backend {
     let root = crate::args::root();
-    let crypto_config = root.join(".pass").join("storage");
-    let crypto_type = std::fs::read_to_string(crypto_config)
+    let storage_config = root.join(".pass").join("storage");
+    let storage_type = std::fs::read_to_string(storage_config)
         .unwrap()
         .trim()
         .to_owned();
 
-    match crypto_type.as_str() {
+    match storage_type.as_str() {
         "fs" => Backend::Fs,
         _ => panic!("No storage setup"),
     }
