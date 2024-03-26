@@ -28,6 +28,8 @@ fn get_key() -> String {
 
 pub fn init() {
     let root = crate::args::root();
+    let crypto_config = root.join(".pass").join("crypto");
+    fs::write(crypto_config, "gpg").unwrap();
     let path_key = root.join(".pass").join("gpg-id");
     let keys = get_keys();
 

@@ -11,7 +11,7 @@ pub enum Backend {
 }
 
 impl Backend {
-    /// Additional initialization steps for the crypto backend
+    /// Initialization steps for the crypto backend
     pub fn init(&self) {
         match self {
             Backend::Gpg => gpg::init(),
@@ -38,24 +38,6 @@ impl Backend {
             Backend::Plain => plain::encrypt(content),
         }
     }
-}
-
-impl From<Backend> for Vec<u8> {
-    fn from(backend: Backend) -> Vec<u8> {
-        match backend {
-            Backend::Gpg => b"gpg".to_vec(),
-            Backend::Plain => b"plain".to_vec(),
-        }
-    }
-}
-
-/// Initialize the crypto backend
-pub fn init(backend: Backend) {
-    let root = crate::args::root();
-    let crypto_config = root.join(".pass").join("crypto");
-    fs::write(crypto_config, Vec::from(backend)).unwrap();
-    let crypto = get();
-    crypto.init();
 }
 
 /// Get the crypto backend

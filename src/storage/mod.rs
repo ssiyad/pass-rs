@@ -8,7 +8,7 @@ pub enum Backend {
 }
 
 impl Backend {
-    /// Additional initialization steps for the crypto backend
+    /// Initialization steps for the storage backend
     pub fn init(&self) {
         match self {
             Backend::Fs => fs::init(),

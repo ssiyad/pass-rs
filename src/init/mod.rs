@@ -1,6 +1,5 @@
 mod args;
 
-use crate::crypto;
 pub use args::Args;
 use std::fs;
 
@@ -14,7 +13,7 @@ pub fn main(args: Args) {
     }
 
     // Initialize the crypto backend
-    crypto::init(args.crypto);
+    args.crypto.init();
 
     // Initialize the storage backend
     args.storage.init();
