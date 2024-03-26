@@ -27,8 +27,8 @@ fn extract_password(content: &str) -> &str {
         }
 
         // If the line starts with `Password: `, then it's a password.
-        if line.starts_with("Password: ") {
-            password = line.trim_start_matches("Password: ");
+        if line.starts_with("password: ") {
+            password = line.trim_start_matches("password: ");
             break;
         }
     }
