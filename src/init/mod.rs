@@ -12,6 +12,14 @@ pub fn main(args: Args) {
         fs::create_dir(&root).unwrap();
     }
 
+    // Get config directory.
+    let root_config = root.join(".pass");
+
+    // Create config directory if it doesn't exist.
+    if !root_config.exists() {
+        fs::create_dir(&root_config).unwrap();
+    }
+
     // Initialize the crypto backend
     args.crypto.init();
 
