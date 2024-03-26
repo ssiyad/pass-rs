@@ -33,6 +33,10 @@ pub enum Cmd {
     #[clap(alias = "generate")]
     Pwgen(crate::pwgen::Args),
 
+    /// Remove an existing password entry
+    #[clap(alias = "rm")]
+    Remove(crate::remove::Args),
+
     /// Show an existing password entry
     Show(crate::show::Args),
 }

@@ -7,6 +7,7 @@ mod init;
 mod list;
 mod otp;
 mod pwgen;
+mod remove;
 mod show;
 mod storage;
 
@@ -23,6 +24,7 @@ pub fn main() {
         Cmd::List => list::main(),
         Cmd::Otp(options) => otp::main(options),
         Cmd::Pwgen(options) => pwgen::main(options),
+        Cmd::Remove(options) => remove::main(options),
         Cmd::Show(options) => show::main(options),
     }
 }

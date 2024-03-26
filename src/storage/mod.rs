@@ -33,6 +33,15 @@ impl Backend {
             Backend::Fs => fs::write(name, content),
         }
     }
+
+    /// Remove secret
+    ///
+    /// * `name`:
+    pub fn remove(&self, name: String) {
+        match self {
+            Backend::Fs => fs::remove(name),
+        }
+    }
 }
 
 /// Get the crypto backend

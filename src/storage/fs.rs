@@ -19,3 +19,7 @@ pub fn write(name: String, content: Vec<u8>) {
     fs::create_dir_all(effective_path.parent().unwrap()).unwrap();
     fs::write(effective_path, content).unwrap();
 }
+
+pub fn remove(name: String) {
+    fs::remove_file(path(name)).unwrap();
+}
