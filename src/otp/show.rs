@@ -29,33 +29,38 @@ pub fn main(args: Args) {
         .trim_start_matches("totp: ")
         .to_string();
     let otp_gen = Generator::new(token);
+    let mut count = 0;
 
     loop {
+        if count > 0 {
+            execute!(io::stdout(), MoveUp(2), Clear(ClearType::FromCursorDown)).ok();
+        }
+
         let code = otp_gen.generate_current();
         let refresh_in = otp_gen.refresh_current_in();
 
         execute!(
             io::stdout(),
-            MoveUp(2),
-            Clear(ClearType::FromCursorDown),
-            SetForegroundColor(Color::Red),
+            SetForegroundColor(Color::Blue),
             SetAttribute(Attribute::Bold),
             Print("Refreshing in: "),
             SetAttribute(Attribute::Reset),
-            SetForegroundColor(Color::Green),
+            SetForegroundColor(Color::Yellow),
             Print(refresh_in),
             Print('\n'),
+            SetForegroundColor(Color::Blue),
             SetAttribute(Attribute::Bold),
-            SetForegroundColor(Color::Red),
             Print("Code: "),
             SetAttribute(Attribute::Reset),
             SetForegroundColor(Color::Green),
             Print(code),
             Print('\n'),
+            SetAttribute(Attribute::Reset),
             ResetColor,
         )
         .ok();
 
+        count += 1;
         thread::sleep(Duration::from_secs(1));
     }
 }
