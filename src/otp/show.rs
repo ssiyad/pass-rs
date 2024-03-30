@@ -2,11 +2,15 @@ use super::generator::Generator;
 use crate::crypto;
 use clap::Parser;
 use crossterm::{
+    cursor::MoveUp,
     execute,
     style::{Attribute, Color, Print, ResetColor, SetAttribute, SetForegroundColor},
+    terminal::{Clear, ClearType},
 };
 use std::fs;
 use std::io;
+use std::thread;
+use std::time::Duration;
 
 #[derive(Parser)]
 pub struct Args {
@@ -25,18 +29,33 @@ pub fn main(args: Args) {
         .trim_start_matches("totp: ")
         .to_string();
     let otp_gen = Generator::new(token);
-    let code = otp_gen.generate_current();
 
-    execute!(
-        io::stdout(),
-        SetAttribute(Attribute::Bold),
-        SetForegroundColor(Color::Red),
-        Print("Code: "),
-        SetForegroundColor(Color::Green),
-        Print(code),
-        Print("\n"),
-        ResetColor,
-        SetAttribute(Attribute::Reset),
-    )
-    .ok();
+    loop {
+        let code = otp_gen.generate_current();
+        let refresh_in = otp_gen.refresh_current_in();
+
+        execute!(
+            io::stdout(),
+            MoveUp(2),
+            Clear(ClearType::FromCursorDown),
+            SetForegroundColor(Color::Red),
+            SetAttribute(Attribute::Bold),
+            Print("Refreshing in: "),
+            SetAttribute(Attribute::Reset),
+            SetForegroundColor(Color::Green),
+            Print(refresh_in),
+            Print('\n'),
+            SetAttribute(Attribute::Bold),
+            SetForegroundColor(Color::Red),
+            Print("Code: "),
+            SetAttribute(Attribute::Reset),
+            SetForegroundColor(Color::Green),
+            Print(code),
+            Print('\n'),
+            ResetColor,
+        )
+        .ok();
+
+        thread::sleep(Duration::from_secs(1));
+    }
 }

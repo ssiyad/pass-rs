@@ -44,6 +44,22 @@ impl Generator {
         mac.finalize().into_bytes().to_vec()
     }
 
+    /// Get the time until the next refresh.
+    ///
+    /// * `time`:
+    fn refresh_in(&self, time: u64) -> u64 {
+        self.step_size - (time % self.step_size)
+    }
+
+    /// Get the time until the next refresh using the current time.
+    pub fn refresh_current_in(&self) -> u64 {
+        let time = SystemTime::now()
+            .duration_since(SystemTime::UNIX_EPOCH)
+            .unwrap()
+            .as_secs();
+        self.refresh_in(time)
+    }
+
     /// Generate a code using `time`.
     ///
     /// * `time`:
@@ -83,6 +99,20 @@ mod test {
         let otp_gen = Generator::new("GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ".to_string()).with_size(8);
         let code = otp_gen.generate(1111111109);
         assert_eq!(code, 7081804);
+    }
+
+    #[test]
+    fn refresh_in_seconds_1() {
+        let otp_gen = Generator::new("GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ".to_string()).with_size(8);
+        let refresh = otp_gen.refresh_in(59);
+        assert_eq!(refresh, 1);
+    }
+
+    #[test]
+    fn refresh_in_seconds_2() {
+        let otp_gen = Generator::new("GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ".to_string()).with_size(8);
+        let refresh = otp_gen.refresh_in(12);
+        assert_eq!(refresh, 18);
     }
 
     #[test]
