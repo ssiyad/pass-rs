@@ -1,7 +1,12 @@
 # `pass-rs`
-A simple password manager, written in Rust.
+Simple password manager, written in Rust.
 
 --- 
+## Gallery
+[![asciicast](https://asciinema.org/a/6Q7uBJ0tVI6QCvQaGC2IMFtea.svg)](https://asciinema.org/a/6Q7uBJ0tVI6QCvQaGC2IMFtea)
+[![asciicast](https://asciinema.org/a/v1absRM8jZPAzTphShQYTpxKE.svg)](https://asciinema.org/a/v1absRM8jZPAzTphShQYTpxKE)
+[![asciicast](https://asciinema.org/a/TOn8nG0YJtO9FVDWVXuKIUUdY.svg)](https://asciinema.org/a/TOn8nG0YJtO9FVDWVXuKIUUdY)
+
 ## Build From Source
 ### Prerequisites
 For building `pass-rs` from source, you need to have these tools installed:
