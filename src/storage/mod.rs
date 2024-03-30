@@ -1,4 +1,5 @@
 mod fs;
+mod tree;
 
 use clap::ValueEnum;
 
@@ -40,6 +41,16 @@ impl Backend {
     pub fn remove(&self, name: String) {
         match self {
             Backend::Fs => fs::remove(name),
+        }
+    }
+
+    /// List the secrets
+    ///
+    /// * `flat`:
+    /// * `color`:
+    pub fn tree(&self, flat: bool, no_color: bool) {
+        match self {
+            Backend::Fs => fs::tree(flat, no_color),
         }
     }
 }

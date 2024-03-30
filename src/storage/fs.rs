@@ -1,3 +1,5 @@
+use super::tree::Node;
+use ignore::Walk;
 use std::{fs, path::PathBuf};
 
 pub fn init() {
@@ -22,4 +24,23 @@ pub fn write(name: String, content: Vec<u8>) {
 
 pub fn remove(name: String) {
     fs::remove_file(path(name)).unwrap();
+}
+
+pub fn tree(flat: bool, no_color: bool) {
+    let root = crate::args::root();
+    let walker = Walk::new(&root);
+
+    for n in walker.skip(1).filter_map(|x| x.ok()) {
+        let path = n.path();
+        Node::new(
+            path.strip_prefix(&root)
+                .unwrap()
+                .components()
+                .map(|x| x.as_os_str().to_string_lossy().to_string())
+                .collect::<Vec<String>>(),
+            path.is_dir(),
+        )
+        .print(flat, !no_color)
+        .unwrap();
+    }
 }

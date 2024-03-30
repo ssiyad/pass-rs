@@ -21,7 +21,7 @@ pub fn main() {
         Cmd::Create => create::main(),
         Cmd::Edit(options) => edit::main(options),
         Cmd::Init(options) => init::main(options),
-        Cmd::List => list::main(),
+        Cmd::List(options) => list::main(options),
         Cmd::Otp(options) => otp::main(options),
         Cmd::Pwgen(options) => pwgen::main(options),
         Cmd::Remove(options) => remove::main(options),

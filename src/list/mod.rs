@@ -1,6 +1,7 @@
-mod tree;
+mod args;
 
-pub fn main() {
-    let root = super::args::root();
-    tree::print(root, "".to_string(), true, 0);
+pub use args::Args;
+
+pub fn main(args: Args) {
+    crate::storage::get().tree(args.flat, args.no_color);
 }

@@ -24,7 +24,7 @@ pub enum Cmd {
 
     /// List all password entries
     #[clap(alias = "ls")]
-    List,
+    List(crate::list::Args),
 
     /// Manage time based one time passwords
     Otp(crate::otp::Args),
