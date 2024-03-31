@@ -93,7 +93,7 @@ struct Template {
 
 pub fn main() {
     // Load templates.
-    let mut templates = vec![
+    let mut templates = [
         include_str!("templates/0-websites.toml"),
         include_str!("templates/1-pin.toml"),
     ]
